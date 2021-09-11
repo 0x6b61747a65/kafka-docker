@@ -21,32 +21,44 @@ services:
   kafka-node-01:
     container_name: kafka-node-01
     image: 'bitnami/kafka:2.4.0'
+    hostname: kafka-node-01
     networks: 
       - kafka-network
     ports: 
-      - '9092'
+      - '9092:9092'
+      - '9093:9093'
     volumes: 
-      - './kafka-cofig/kafka-node-01/server.properties:/opt/bitnami/kafka/conf/server.properties'
+      - './kafka-cofig/kafka-node-01/server.properties:/bitnami/kafka/config/server.properties'
       - './data/kafka-node-01:/bitnami/kafka'
     environment: 
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-node-01:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-node-01:9092,EXTERNAL://localhost:9093
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper-node-01
 
   kafka-node-02:
     container_name: kafka-node-02
     image: 'bitnami/kafka:2.4.0'
+    hostname: kafka-node-02
     networks: 
       - kafka-network
     ports: 
-      - '9092'
+      - '9094:9094'
+      - '9095:9095'
     volumes: 
-      - './kafka-cofig/kafka-node-02/server.properties:/opt/bitnami/kafka/conf/server.properties'
+      - './kafka-cofig/kafka-node-02/server.properties:/bitnami/kafka/config/server.properties'
       - './data/kafka-node-02:/bitnami/kafka'
     environment: 
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-node-01:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9094,EXTERNAL://:9095
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-node-02:9094,EXTERNAL://localhost:9095
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper-node-01
 
