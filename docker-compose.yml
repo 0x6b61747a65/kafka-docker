@@ -27,6 +27,7 @@ services:
     ports: 
       - '9092:9092'
       - '9093:9093'
+      - '5555:5555'
     volumes: 
       - './kafka-cofig/kafka-node-01/server.properties:/bitnami/kafka/config/server.properties'
       - './data/kafka-node-01:/bitnami/kafka'
@@ -37,6 +38,7 @@ services:
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
       - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-node-01:9092,EXTERNAL://localhost:9093
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+      - JMX_PORT=5555
     depends_on:
       - zookeeper-node-01
 
@@ -49,6 +51,7 @@ services:
     ports: 
       - '9094:9094'
       - '9095:9095'
+      - '6666:6666'
     volumes: 
       - './kafka-cofig/kafka-node-02/server.properties:/bitnami/kafka/config/server.properties'
       - './data/kafka-node-02:/bitnami/kafka'
@@ -59,6 +62,7 @@ services:
       - KAFKA_CFG_LISTENERS=CLIENT://:9094,EXTERNAL://:9095
       - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka-node-02:9094,EXTERNAL://localhost:9095
       - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+      - JMX_PORT=6666
     depends_on:
       - zookeeper-node-01
 
