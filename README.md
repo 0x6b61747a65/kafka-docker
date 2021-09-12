@@ -11,3 +11,23 @@
 `kafka-python==2.0.2`
 - [pypi](https://pypi.org/project/kafka-python/)
 - [kafka-python.readthedocs](https://kafka-python.readthedocs.io/en/master/index.html)
+
+## Usage
+
+- Install python requirements from `app/requierments.txt`
+
+```bash
+pip install -r requirements.txt
+```
+
+- Start cluster
+
+```bash
+docker-compose up -d
+```
+
+- Run consumer from `app/consumer` and producer from `app/producer`
+
+## Kafka manager
+
+Kafka manager is available at http://localhost:9000/
